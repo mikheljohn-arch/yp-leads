@@ -42,7 +42,7 @@ export default function AuthPage() {
             </svg>
           </div>
           <h1 className="text-xl font-semibold text-gray-900">YP Leads</h1>
-          <p className="text-sm text-gray-500 mt-1">Yellow Pages Lead Generator · AU</p>
+          <p className="text-sm text-gray.500 mt-1">Yellow Pages Lead Generator · AU</p>
         </div>
 
         <div className="card p-6 shadow-sm">

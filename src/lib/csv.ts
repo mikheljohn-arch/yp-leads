@@ -1,7 +1,7 @@
 import { Lead } from './types'
 
-const HEADERS = ['Managing Director','Title','Company','Address','Phone',
-  'Email','Category','Status','Notes','Date Added']
+const HEADERS = ['Managing Director','Title','Company','Address',
+  'Phone','Email','Category','Status','Notes','Date Added']
 
 function cell(v: string) {
   return `"${(v ?? '').replace(/"/g, '""')}"`
