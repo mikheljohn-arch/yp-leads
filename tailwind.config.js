@@ -5,7 +5,11 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "yp-orange": "#f97316", // custom brand color fixed
+      },
+    },
   },
   plugins: [],
 };
