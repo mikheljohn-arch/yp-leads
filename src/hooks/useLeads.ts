@@ -1,12 +1,11 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { createClient } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 import { Lead, LeadStatus } from '@/lib/types'
 
 export function useLeads() {
-  const supabase = createClient()
-  const router   = useRouter()
+  const router = useRouter()
   const [leads,     setLeads    ] = useState<Lead[]>([])
   const [loading,   setLoading  ] = useState(true)
   const [userEmail, setUserEmail] = useState('')
@@ -16,14 +15,14 @@ export function useLeads() {
       .from('leads').select('*').order('created_at', { ascending: false })
     setLeads(data ?? [])
     setLoading(false)
-  }, [supabase])
+  }, [])
 
   useEffect(() => {
     supabase.auth.getUser().then(({ data: { user } }) => {
       if (!user) router.push('/auth')
       else { setUserEmail(user.email ?? ''); fetchLeads() }
     })
-  }, [fetchLeads, router, supabase.auth])
+  }, [fetchLeads, router])
 
   async function updateStatus(id: string, status: LeadStatus) {
     await supabase.from('leads')

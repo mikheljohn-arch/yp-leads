@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useLeads } from '@/hooks/useLeads'
 import { useFilter } from '@/hooks/useFilter'
 import { downloadCSV } from '@/lib/csv'
-import { createClient } from '@/lib/supabase'
+import { supabase } from '@/lib/supabase'
 import { Lead, LeadStatus, LeadFormData } from '@/lib/types'
 import { AU_STATES, LEAD_STATUSES, STATUS_LABELS, STATUS_STYLES, BLANK_FORM } from '@/lib/constants'
 
@@ -96,7 +96,6 @@ function LeadModal({ lead, onClose, onSaved }: {
   onClose: () => void
   onSaved: (lead: Lead) => void
 }) {
-  const supabase = createClient()
   const [form, setForm] = useState<LeadFormData>(lead ? {
     managing_director: lead.managing_director, title: lead.title,
     company_name: lead.company_name, address: lead.address,
@@ -217,8 +216,8 @@ export default function DashboardPage() {
   const { filter, setFilter, search, setSearch, filtered } = useFilter(leads)
   const [modalOpen, setModalOpen] = useState(false)
   const [modalLead, setModalLead] = useState<Lead | undefined>()
-  const [cat, setCat] = useState('')
-  const [loc, setLoc] = useState('')
+  const [cat,   setCat  ] = useState('')
+  const [loc,   setLoc  ] = useState('')
   const [state, setState] = useState('')
 
   function openYP() {
@@ -254,7 +253,6 @@ export default function DashboardPage() {
       </header>
 
       <main className="max-w-6xl mx-auto px-4 py-6 space-y-5">
-        {/* Search Yellow Pages */}
         <div className="card p-4 shadow-sm">
           <div className="flex items-center gap-2 mb-3">
             <div className="w-5 h-5 bg-yp-orange rounded flex items-center justify-center flex-shrink-0">
@@ -277,7 +275,6 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Stats */}
         <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
           {stats.map(s => (
             <div key={s.label} className="card px-4 py-3">
@@ -287,7 +284,6 @@ export default function DashboardPage() {
           ))}
         </div>
 
-        {/* Toolbar */}
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex bg-white border border-gray-200 rounded-lg p-1 gap-1">
             {FILTERS.map(o => (
@@ -310,7 +306,6 @@ export default function DashboardPage() {
           </div>
         </div>
 
-        {/* Lead list */}
         {loading ? (
           <div className="text-center py-16 text-gray-400 text-sm">Loading leads…</div>
         ) : filtered.length === 0 ? (
