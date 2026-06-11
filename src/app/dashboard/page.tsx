@@ -1,4 +1,5 @@
 'use client'
+export const dynamic = 'force-dynamic'
 import { useState } from 'react'
 import { useLeads } from '@/hooks/useLeads'
 import { useFilter } from '@/hooks/useFilter'

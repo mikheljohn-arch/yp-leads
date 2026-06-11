@@ -16,4 +16,4 @@ export interface Lead {
   updated_at: string
 }
 
-export type LeadInsert = Omit<Lead, 'id' | 'user_id' | 'created_at' | 'updated_at'>
+export type LeadFormData = Omit<Lead, 'id' | 'user_id' | 'created_at' | 'updated_at'>

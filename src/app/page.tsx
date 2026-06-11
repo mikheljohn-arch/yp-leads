@@ -1,9 +1,10 @@
+export const dynamic = 'force-dynamic'
+
 import { redirect } from 'next/navigation'
 import { createClient } from '@/lib/supabase'
 
-export default async function Home() {
+export default async function RootPage() {
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  if (user) redirect('/dashboard')
-  else redirect('/auth')
+  redirect(user ? '/dashboard' : '/auth')
 }
