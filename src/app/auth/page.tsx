@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 
-type Mode = 'login' | 'signup'
 
 export default function AuthPage() {
   const router = useRouter()
@@ -24,9 +23,7 @@ export default function AuthPage() {
       if (error) setError(error.message)
       else router.push('/dashboard')
     } else {
-      const { error } = await supabase.auth.signUp({ email, password })
-      if (error) setError(error.message)
-      else setDone(true)
+      
     }
     setLoading(false)
   }
