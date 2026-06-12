@@ -1,14 +1,11 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { Lead, LeadStatus } from '@/lib/types'
 
 export function useLeads() {
-  const router = useRouter()
-  const [leads,     setLeads    ] = useState<Lead[]>([])
-  const [loading,   setLoading  ] = useState(true)
-  const [userEmail, setUserEmail] = useState('')
+  const [leads,   setLeads  ] = useState<Lead[]>([])
+  const [loading, setLoading] = useState(true)
 
   const fetchLeads = useCallback(async () => {
     const { data } = await supabase
@@ -17,12 +14,7 @@ export function useLeads() {
     setLoading(false)
   }, [])
 
-  useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      if (!user) router.push('/auth')
-      else { setUserEmail(user.email ?? ''); fetchLeads() }
-    })
-  }, [fetchLeads, router])
+  useEffect(() => { fetchLeads() }, [fetchLeads])
 
   async function updateStatus(id: string, status: LeadStatus) {
     await supabase.from('leads')
@@ -44,10 +36,5 @@ export function useLeads() {
     })
   }
 
-  async function signOut() {
-    await supabase.auth.signOut()
-    router.push('/auth')
-  }
-
-  return { leads, loading, userEmail, updateStatus, deleteLead, upsertLead, signOut }
+  return { leads, loading, updateStatus, deleteLead, upsertLead }
 }
