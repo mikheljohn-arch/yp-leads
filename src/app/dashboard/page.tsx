@@ -212,7 +212,7 @@ const FILTERS = [
 ]
 
 export default function DashboardPage() {
-  const { leads, loading, userEmail, updateStatus, deleteLead, upsertLead, signOut } = useLeads()
+  const { leads, loading, updateStatus, deleteLead, upsertLead } = useLeads()
   const { filter, setFilter, search, setSearch, filtered } = useFilter(leads)
   const [modalOpen, setModalOpen] = useState(false)
   const [modalLead, setModalLead] = useState<Lead | undefined>()
@@ -237,18 +237,12 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-        <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2">
-            <div className="w-7 h-7 bg-yp-orange rounded-lg flex items-center justify-center">
-              <Icon d={ICONS.building} size="w-4 h-4" />
-            </div>
-            <span className="font-semibold text-gray-900">YP Leads</span>
-            <span className="text-xs bg-orange-100 text-yp-orange px-2 py-0.5 rounded-full font-medium">AU</span>
+        <div className="max-w-6xl mx-auto px-4 h-14 flex items-center gap-2">
+          <div className="w-7 h-7 bg-yp-orange rounded-lg flex items-center justify-center">
+            <Icon d={ICONS.building} size="w-4 h-4" />
           </div>
-          <div className="flex items-center gap-2">
-            {userEmail && <span className="text-xs text-gray-400 hidden sm:block">{userEmail}</span>}
-            <button onClick={signOut} className="btn-secondary text-xs px-3 py-1.5">Sign out</button>
-          </div>
+          <span className="font-semibold text-gray-900">YP Leads</span>
+          <span className="text-xs bg-orange-100 text-yp-orange px-2 py-0.5 rounded-full font-medium">AU</span>
         </div>
       </header>
 
